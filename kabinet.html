@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кабинет · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Кабинет</h1>
+<div class="card" id="hello"></div>
+<div class="card"><a href="zakazy.html">Мои заказы</a> · <a href="nastroyki.html">Настройки</a> · <a href="rekvizity.html">Реквизиты</a> · <a href="chernoviki.html">Черновики откликов</a></div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var u = Stend.store('user');
+Stend.$('#hello').textContent = u ? 'Здравствуйте, ' + u + '! Вы вошли в кабинет.' : 'Вы не вошли. Войдите на странице «Вход».';
+Stend.log('cabinet', {user: u || null});
+</script>
+</body>
+</html>
