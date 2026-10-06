@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новая услуга · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Новая услуга</h1>
+<form class="card" id="f">
+  <label for="title">Название услуги</label><input type="text" id="title" name="title">
+  <label for="cat">Категория</label><select id="cat" name="cat"><option value="">—</option><option value="web">Сайты и лендинги</option><option value="bots">Чат-боты</option><option value="design">Дизайн</option><option value="integr">Интеграции</option></select>
+  <label for="price">Цена от, ₽</label><input type="number" id="price" name="price">
+  <label for="about">Описание</label><textarea id="about" name="about"></textarea>
+  <label class="switch" for="pub"><input type="checkbox" id="pub" name="pub"><span class="knob"></span>Показывать в каталоге</label>
+  <button type="submit">Опубликовать</button><div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var d = {title: Stend.$('#title').value.trim(), cat: Stend.$('#cat').value, price: Number(Stend.$('#price').value),
+           about_len: Stend.$('#about').value.trim().length, visible: Stend.$('#pub').checked};
+  if (!d.title || !d.cat || !d.price || !d.about_len) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = 'Заполните все поля'; return; }
+  Stend.log('service', d);
+  Stend.$('#f').innerHTML = '<div class="ok">Услуга «' + d.title + '» опубликована.</div>';
+});
+</script>
+</body>
+</html>
