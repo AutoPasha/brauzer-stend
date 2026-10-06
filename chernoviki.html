@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Черновики откликов · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Черновики откликов</h1>
+<div class="card"><table id="t"><tr><td>Отклик на лендинг для кофейни</td><td><button type="button" class="ghost del">Удалить</button></td></tr><tr><td>Старый отклик на дизайн</td><td><button type="button" class="ghost del">Удалить</button></td></tr><tr><td>Отклик на телеграм-бота</td><td><button type="button" class="ghost del">Удалить</button></td></tr><tr><td>Старый отклик на парсер</td><td><button type="button" class="ghost del">Удалить</button></td></tr></table></div>
+<div class="modal-back" id="dlg" hidden><div class="modal" role="dialog" aria-modal="true">
+  <h3>Удалить черновик?</h3><p id="q"></p>
+  <button type="button" id="yes">Удалить</button> <button type="button" class="ghost" id="no">Отмена</button></div></div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var row = null;
+Stend.$$('.del').forEach(function (b) { b.onclick = function () {
+  row = b.closest('tr'); Stend.$('#q').textContent = '«' + row.cells[0].textContent + '» будет удалён без возврата.'; Stend.show(Stend.$('#dlg'), true); }; });
+Stend.$('#no').onclick = function () { Stend.show(Stend.$('#dlg'), false); };
+Stend.$('#yes').onclick = function () { Stend.log('delete_draft', {title: row.cells[0].textContent}); row.remove(); Stend.show(Stend.$('#dlg'), false); };
+</script>
+</body>
+</html>
