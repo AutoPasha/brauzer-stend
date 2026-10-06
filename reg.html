@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Регистрация · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Регистрация</h1>
+<form class="card" id="f" novalidate>
+  <label for="name">Имя и фамилия</label><input type="text" id="name" name="name" required>
+  <label for="email">Электронная почта</label><input type="email" id="email" name="email" required>
+  <label for="p1">Пароль</label><input type="password" id="p1" name="password" required>
+  <label for="p2">Повторите пароль</label><input type="password" id="p2" name="password2" required>
+  <label class="switch" for="agree"><input type="checkbox" id="agree" name="agree"><span class="knob"></span>Согласен с правилами сервиса</label>
+  <button type="submit">Создать аккаунт</button>
+  <div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var name = Stend.$('#name').value.trim(), email = Stend.$('#email').value.trim();
+  var p1 = Stend.$('#p1').value, p2 = Stend.$('#p2').value, msg = Stend.$('#msg');
+  if (!name || !email || !p1) { msg.className = 'err'; msg.textContent = 'Заполните все поля'; return; }
+  if (p1 !== p2) { msg.className = 'err'; msg.textContent = 'Пароли не совпадают'; return; }
+  if (!Stend.$('#agree').checked) { msg.className = 'err'; msg.textContent = 'Нужно согласие с правилами'; return; }
+  Stend.log('register', {name: name, email: email, password_len: p1.length});
+  Stend.$('#f').innerHTML = '<div class="ok">Аккаунт создан. Письмо для подтверждения отправлено на ' + email + '</div><a class="btn" href="login.html">Войти</a>';
+});
+</script>
+</body>
+</html>
