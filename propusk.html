@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заявка на пропуск · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Заявка на пропуск</h1>
+<form class="card" id="f">
+  <label for="fio">ФИО посетителя</label><input type="text" id="fio" name="fio" required>
+  <label for="day">Дата визита</label><input type="date" id="day" name="day" min="2026-01-01" required>
+  <label for="time">Время</label><select id="time" name="time"><option>10:00</option><option>12:00</option><option>15:00</option><option>17:00</option></select>
+  <button type="submit">Сохранить пропуск</button><div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var fio = Stend.$('#fio').value.trim(), day = Stend.$('#day').value;
+  if (!fio || !day) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = 'Укажите ФИО и дату'; return; }
+  Stend.log('pass', {fio: fio, date: day, time: Stend.$('#time').value});
+  Stend.$('#msg').className = 'ok'; Stend.$('#msg').textContent = 'Пропуск оформлен: ' + fio + ', ' + day;
+});
+</script>
+</body>
+</html>
