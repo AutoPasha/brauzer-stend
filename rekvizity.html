@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Компания · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Компания</h1>
+<div class="card">
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true" aria-controls="t1" id="b1">Профиль</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="t2" id="b2">Реквизиты</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="t3" id="b3">Безопасность</button>
+  </div>
+  <div role="tabpanel" id="t1"><p>ООО «Учебная компания»</p><label for="brand">Название для клиентов</label><input type="text" id="brand" value="Учебная компания"></div>
+  <form role="tabpanel" id="t2" hidden>
+    <label for="inn">ИНН</label><input type="text" id="inn" name="inn" inputmode="numeric">
+    <label for="kpp">КПП</label><input type="text" id="kpp" name="kpp" inputmode="numeric">
+    <button type="submit">Сохранить реквизиты</button><div id="msg"></div>
+  </form>
+  <div role="tabpanel" id="t3" hidden><p>Двухфакторная защита включена.</p></div>
+</div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$$('[role=tab]').forEach(function (b) { b.onclick = function () {
+  Stend.$$('[role=tab]').forEach(function (x) { x.setAttribute('aria-selected', x === b); Stend.show(Stend.$('#' + x.getAttribute('aria-controls')), x === b); }); }; });
+Stend.$('#t2').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var inn = Stend.$('#inn').value.replace(/\D/g, ''), kpp = Stend.$('#kpp').value.replace(/\D/g, '');
+  if (inn.length !== 10 || kpp.length !== 9) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = 'ИНН — 10 цифр, КПП — 9'; return; }
+  Stend.log('requisites', {inn: inn, kpp: kpp});
+  Stend.$('#msg').className = 'ok'; Stend.$('#msg').textContent = 'Реквизиты сохранены';
+});
+</script>
+</body>
+</html>
