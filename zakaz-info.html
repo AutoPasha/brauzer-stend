@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заказ · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Заказ</h1>
+<div class="card" id="o"></div><a href="zakazy.html">← к заказам</a>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var O = [["1038", "Кофемашина Delonghi", "Доставлен"], ["1042", "Чайник Bork K780", "Собирается"], ["1047", "Тостер Kitfort", "Собирается"], ["1051", "Блендер Philips", "Оплачен"], ["2077", "Пылесос Dreame L10", "Передан в доставку"]];
+var id = Stend.param('id'), o = O.filter(function (x) { return x[0] === id; })[0];
+Stend.$('#o').innerHTML = o ? '<h2>Заказ № ' + o[0] + '</h2><p>' + o[1] + '</p><p>Статус: <b>' + o[2] + '</b></p>' : 'Заказ не найден';
+Stend.log('view_order', {id: id});
+</script>
+</body>
+</html>
