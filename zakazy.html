@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мои заказы · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Мои заказы</h1>
+<div class="card"><label for="find">Найти заказ по номеру</label><input type="search" id="find" name="find" placeholder="Номер заказа"></div>
+<div class="card"><table id="t"><tr data-id="1038"><td><a href="zakaz-info.html?id=1038">№ 1038</a></td><td>Кофемашина Delonghi</td><td class="st">Доставлен</td><td></td></tr><tr data-id="1042"><td><a href="zakaz-info.html?id=1042">№ 1042</a></td><td>Чайник Bork K780</td><td class="st">Собирается</td><td><button type="button" class="ghost cancel">Отменить</button></td></tr><tr data-id="1047"><td><a href="zakaz-info.html?id=1047">№ 1047</a></td><td>Тостер Kitfort</td><td class="st">Собирается</td><td><button type="button" class="ghost cancel">Отменить</button></td></tr><tr data-id="1051"><td><a href="zakaz-info.html?id=1051">№ 1051</a></td><td>Блендер Philips</td><td class="st">Оплачен</td><td><button type="button" class="ghost cancel">Отменить</button></td></tr><tr data-id="2077"><td><a href="zakaz-info.html?id=2077">№ 2077</a></td><td>Пылесос Dreame L10</td><td class="st">Передан в доставку</td><td></td></tr></table></div>
+<div class="modal-back" id="dlg" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="dlgt">
+  <h3 id="dlgt">Отменить заказ?</h3><p id="dlgq"></p>
+  <button type="button" id="yes">Да, отменить</button> <button type="button" class="ghost" id="no">Нет</button></div></div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var target = null;
+Stend.$('#find').addEventListener('input', function () {
+  var q = this.value.replace(/\D/g, '');
+  Stend.$$('#t tr').forEach(function (tr) { tr.hidden = q && tr.dataset.id.indexOf(q) < 0; });
+});
+Stend.$$('.cancel').forEach(function (b) { b.onclick = function () {
+  target = b.closest('tr'); Stend.$('#dlgq').textContent = 'Заказ № ' + target.dataset.id + ' будет отменён.'; Stend.show(Stend.$('#dlg'), true); }; });
+Stend.$('#no').onclick = function () { Stend.show(Stend.$('#dlg'), false); };
+Stend.$('#yes').onclick = function () {
+  Stend.log('cancel', {id: target.dataset.id});
+  target.querySelector('.st').textContent = 'Отменён'; var c = target.querySelector('.cancel'); if (c) c.remove();
+  Stend.show(Stend.$('#dlg'), false);
+};
+</script>
+</body>
+</html>
