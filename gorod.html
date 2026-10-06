@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Профиль доставки · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Профиль доставки</h1>
+<form class="card" id="f">
+  <label for="city">Город доставки</label>
+  <select id="city" name="city"><option value="">— выберите —</option><option value="c0">Москва</option><option value="c1">Санкт-Петербург</option><option value="c2">Новосибирск</option><option value="c3">Екатеринбург</option><option value="c4">Казань</option><option value="c5">Нижний Новгород</option><option value="c6">Челябинск</option><option value="c7">Самара</option><option value="c8">Омск</option><option value="c9">Ростов-на-Дону</option><option value="c10">Уфа</option><option value="c11">Красноярск</option><option value="c12">Воронеж</option><option value="c13">Пермь</option><option value="c14">Волгоград</option><option value="c15">Краснодар</option><option value="c16">Саратов</option><option value="c17">Тюмень</option><option value="c18">Тольятти</option><option value="c19">Ижевск</option><option value="c20">Барнаул</option><option value="c21">Ульяновск</option><option value="c22">Иркутск</option><option value="c23">Хабаровск</option><option value="c24">Ярославль</option><option value="c25">Владивосток</option><option value="c26">Махачкала</option><option value="c27">Томск</option><option value="c28">Оренбург</option><option value="c29">Кемерово</option></select>
+  <label for="comment">Комментарий курьеру</label><input type="text" id="comment" name="comment">
+  <button type="submit">Сохранить</button><div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var s = Stend.$('#city');
+  if (!s.value) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = 'Выберите город'; return; }
+  Stend.log('city', {city: s.options[s.selectedIndex].text});
+  Stend.$('#msg').className = 'ok'; Stend.$('#msg').textContent = 'Сохранено: ' + s.options[s.selectedIndex].text;
+});
+</script>
+</body>
+</html>
