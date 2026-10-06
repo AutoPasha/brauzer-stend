@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог техники · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Каталог техники</h1>
+<form class="card" id="f">
+  <fieldset style="border:0;padding:0"><legend><b>Категория</b></legend>
+    <label class="row"><input type="checkbox" name="cat" value="notebooks"> Ноутбуки</label>
+    <label class="row"><input type="checkbox" name="cat" value="monitors"> Мониторы</label>
+    <label class="row"><input type="checkbox" name="cat" value="keyboards"> Клавиатуры</label>
+  </fieldset>
+  <label for="max">Цена до</label>
+  <select id="max" name="max"><option value="">любая</option><option value="10000">10 000 ₽</option><option value="30000">30 000 ₽</option><option value="50000">50 000 ₽</option><option value="100000">100 000 ₽</option></select>
+  <button type="submit">Показать</button>
+</form>
+<div class="card" id="res"></div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var G = [["n1", "notebooks", "Ноутбук Aster 14", 48900], ["n2", "notebooks", "Ноутбук Lume Pro 16", 112000], ["n3", "notebooks", "Ноутбук Kite 13", 36500], ["m1", "monitors", "Монитор View 27", 24900], ["m2", "monitors", "Монитор Arc 34", 58900], ["k1", "keyboards", "Клавиатура Tact", 6900], ["k2", "keyboards", "Клавиатура Loop TKL", 11900], ["n4", "notebooks", "Ноутбук Aster 15 Air", 52500]];
+function draw(list) { Stend.$('#res').innerHTML = '<p>Товаров: ' + list.length + '</p><table>' + list.map(function (g) {
+  return '<tr><td>' + g[2] + '</td><td>' + g[3].toLocaleString('ru-RU') + ' ₽</td></tr>'; }).join('') + '</table>'; }
+draw(G);
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var cats = Stend.$$('input[name=cat]:checked').map(function (i) { return i.value; });
+  var max = Number(Stend.$('#max').value) || 0;
+  Stend.log('filter', {cats: cats, max: max});
+  draw(G.filter(function (g) { return (!cats.length || cats.indexOf(g[1]) >= 0) && (!max || g[3] <= max); }));
+});
+</script>
+</body>
+</html>
