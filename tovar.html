@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Товар · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Товар</h1>
+<div class="card" id="t"></div><a href="tovary.html">← в каталог</a>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var name = Stend.param('name') || '';
+Stend.$('#t').innerHTML = '<h2>' + name.replace(/</g, '') + '</h2><p>В наличии. Доставка завтра.</p><button type="button">В корзину</button>';
+document.title = name + ' · Учебный кабинет';
+Stend.log('item_open', {name: name});
+</script>
+</body>
+</html>
