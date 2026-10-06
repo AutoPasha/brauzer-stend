@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оформление заказа · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Оформление заказа</h1>
+<form class="card" id="f">
+  <section id="s1"><h2>Шаг 1 из 3. Контакты</h2>
+    <label for="cname">Имя</label><input type="text" id="cname" name="cname">
+    <label for="phone">Телефон</label><input type="tel" id="phone" name="phone">
+    <button type="button" id="next1">Далее</button></section>
+  <section id="s2" hidden><h2>Шаг 2 из 3. Доставка</h2>
+    <label class="row"><input type="radio" name="how" value="courier"> Курьером</label>
+    <label class="row"><input type="radio" name="how" value="pickup"> Самовывоз</label>
+    <label for="addr">Адрес доставки</label><input type="text" id="addr" name="addr">
+    <button type="button" class="ghost" id="back2">Назад</button> <button type="button" id="next2">Далее</button></section>
+  <section id="s3" hidden><h2>Шаг 3 из 3. Подтверждение</h2><p id="sum"></p>
+    <button type="button" class="ghost" id="back3">Назад</button> <button type="button" id="confirm">Подтвердить заказ</button></section>
+  <div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+function step(n) { [1, 2, 3].forEach(function (i) { Stend.show(Stend.$('#s' + i), i === n); }); Stend.$('#msg').textContent = ''; Stend.$('#msg').className = ''; }
+function err(t) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = t; }
+Stend.$('#next1').onclick = function () { if (!Stend.$('#cname').value.trim() || !Stend.$('#phone').value.trim()) return err('Укажите имя и телефон'); step(2); };
+Stend.$('#back2').onclick = function () { step(1); };
+Stend.$('#back3').onclick = function () { step(2); };
+Stend.$('#next2').onclick = function () {
+  var how = (Stend.$('input[name=how]:checked') || {}).value;
+  if (!how) return err('Выберите способ доставки');
+  if (how === 'courier' && !Stend.$('#addr').value.trim()) return err('Укажите адрес');
+  Stend.$('#sum').textContent = Stend.$('#cname').value + ', ' + Stend.$('#phone').value + ', ' + (how === 'courier' ? 'курьером: ' + Stend.$('#addr').value : 'самовывоз');
+  step(3);
+};
+Stend.$('#confirm').onclick = function () {
+  var how = Stend.$('input[name=how]:checked').value;
+  Stend.log('order', {name: Stend.$('#cname').value.trim(), phone: Stend.$('#phone').value.trim(), how: how, addr: Stend.$('#addr').value.trim()});
+  Stend.$('#f').innerHTML = '<div class="ok">Заказ № 5531 оформлен. Мы позвоним для подтверждения.</div>';
+};
+</script>
+</body>
+</html>
