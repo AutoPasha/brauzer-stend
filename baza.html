@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>База знаний · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>База знаний</h1>
+<form class="card search-box" id="f" role="search" action="baza.html">
+  <input type="search" id="q" name="q" placeholder="Поиск по статьям" aria-label="Поиск по статьям">
+  <button type="submit" class="ghost-submit" tabindex="-1">Найти</button>
+</form>
+<div class="card" id="res"><p class="muted">Введите запрос и нажмите Enter.</p></div>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var A = [["refund", "Как вернуть оплату за заказ", "Возврат денег приходит на карту в течение 10 дней."], ["delivery", "Сроки доставки по России", "Курьер привозит заказ за 2–5 дней."], ["password", "Как сменить пароль", "Пароль меняется в настройках кабинета."], ["invoice", "Счёт для юрлица", "Счёт выставляется после заполнения реквизитов."], ["cancel", "Отмена заказа", "Заказ можно отменить до передачи в доставку."]];
+var q = Stend.param('q');
+if (q) {
+  Stend.$('#q').value = q;
+  Stend.log('search', {q: q});
+  var words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  var hits = A.filter(function (a) { var t = (a[1] + ' ' + a[2]).toLowerCase();
+    return words.some(function (w) { return t.indexOf(w.slice(0, 5)) >= 0; }); });
+  Stend.$('#res').innerHTML = hits.length ? '<p>Найдено: ' + hits.length + '</p><ul>' + hits.map(function (a) {
+    return '<li><a href="statya.html?id=' + a[0] + '">' + a[1] + '</a></li>'; }).join('') + '</ul>'
+    : '<p>Ничего не найдено</p>';
+}
+</script>
+</body>
+</html>
