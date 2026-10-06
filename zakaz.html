@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заказ · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Заказ</h1>
+<div class="card" id="job"></div>
+<form class="card" id="f">
+  <h2>Ваш отклик</h2>
+  <label for="text">Текст отклика</label><textarea id="text" name="text"></textarea>
+  <div class="row"><div style="flex:1"><label for="price">Цена, ₽</label><input type="number" id="price" name="price"></div>
+  <div style="flex:1"><label for="days">Срок</label><select id="days" name="days"><option value="">—</option><option value="1">1 день</option><option value="3">3 дня</option><option value="5">5 дней</option><option value="7">7 дней</option><option value="14">14 дней</option></select></div></div>
+  <button type="submit">Откликнуться</button><div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var J = [["j1", "Интеграция 1С с сайтом", "60 000 ₽"], ["j2", "Телеграм-бот для записи в салон", "30 000 ₽"], ["kofe", "Лендинг для кофейни", "35 000 ₽"], ["j4", "Парсер цен конкурентов", "15 000 ₽"], ["j5", "Дизайн карточек для маркетплейса", "12 000 ₽"], ["j6", "Доработка интернет-магазина на Bitrix", "80 000 ₽"], ["j7", "Лендинг для студии йоги", "25 000 ₽"], ["j8", "Скрипт выгрузки заказов в Excel", "8 000 ₽"]];
+var id = Stend.param('id'), j = J.filter(function (x) { return x[0] === id; })[0];
+Stend.$('#job').innerHTML = j ? '<h2>' + j[1] + '</h2><p>Бюджет: ' + j[2] + '</p>' : 'Заказ не найден';
+document.title = (j ? j[1] : 'Заказ') + ' · Учебный кабинет';
+Stend.log('open_job', {id: id});
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var text = Stend.$('#text').value.trim(), price = Number(Stend.$('#price').value), days = Stend.$('#days').value;
+  if (!text || !price || !days) { Stend.$('#msg').className = 'err'; Stend.$('#msg').textContent = 'Заполните текст, цену и срок'; return; }
+  Stend.log('bid', {id: id, text_len: text.length, price: price, days: Number(days)});
+  Stend.$('#f').innerHTML = '<div class="ok">Отклик отправлен заказчику.</div>';
+});
+</script>
+</body>
+</html>
