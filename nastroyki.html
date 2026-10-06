@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Настройки · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Настройки</h1>
+<form class="card" id="f">
+  <label for="phone">Телефон</label><input type="tel" id="phone" name="phone" value="+7 912 345-67-89">
+  <label class="switch" for="mail"><input type="checkbox" id="mail" name="mail"><span class="knob"></span>Уведомления по почте</label>
+  <label class="switch" for="sms"><input type="checkbox" id="sms" name="sms" checked><span class="knob"></span>Уведомления по SMS</label>
+  <button type="submit">Сохранить</button><div id="msg"></div>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  Stend.log('settings', {phone: Stend.$('#phone').value.trim(), mail: Stend.$('#mail').checked, sms: Stend.$('#sms').checked});
+  Stend.$('#msg').className = 'ok'; Stend.$('#msg').textContent = 'Настройки сохранены';
+});
+</script>
+</body>
+</html>
