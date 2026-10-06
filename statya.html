@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Статья · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Статья</h1>
+<div class="card" id="art"></div><a href="baza.html">← к поиску</a>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var A = [["refund", "Как вернуть оплату за заказ", "Возврат денег приходит на карту в течение 10 дней."], ["delivery", "Сроки доставки по России", "Курьер привозит заказ за 2–5 дней."], ["password", "Как сменить пароль", "Пароль меняется в настройках кабинета."], ["invoice", "Счёт для юрлица", "Счёт выставляется после заполнения реквизитов."], ["cancel", "Отмена заказа", "Заказ можно отменить до передачи в доставку."]];
+var id = Stend.param('id'), a = A.filter(function (x) { return x[0] === id; })[0];
+Stend.$('#art').innerHTML = a ? '<h2>' + a[1] + '</h2><p>' + a[2] + '</p>' : 'Статья не найдена';
+document.title = (a ? a[1] : 'Статья') + ' · Учебный кабинет';
+Stend.log('open_article', {id: id});
+</script>
+</body>
+</html>
