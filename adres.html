@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Адрес доставки · Учебный кабинет</title>
+<link rel="stylesheet" href="stend.css">
+<script src="stend.js"></script>
+</head>
+<body>
+<header><a class="brand" href="index.html">Учебный кабинет</a><a href="kabinet.html">Кабинет</a><a href="tovary.html">Каталог</a><a href="baza.html">База знаний</a><a href="birzha.html">Заказы</a></header>
+<main>
+<h1>Адрес доставки</h1>
+<form class="card" id="f" autocomplete="off">
+  <label for="city">Город</label><input type="text" id="city" name="city" role="combobox" aria-autocomplete="list" aria-controls="sug" aria-expanded="false">
+  <ul class="suggest" id="sug" role="listbox" hidden></ul>
+  <label for="street">Улица и дом</label><input type="text" id="street" name="street">
+  <button type="submit" id="save" disabled>Сохранить адрес</button><div id="msg"></div>
+  <p class="muted">Город выбирается только из подсказок.</p>
+</form>
+</main>
+<footer>Стенд для проверки браузерных исполнителей. Данные никуда не отправляются: всё остаётся в этом браузере.</footer>
+<script>
+var C = ["Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань", "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону", "Уфа", "Красноярск", "Воронеж", "Пермь", "Волгоград", "Краснодар", "Саратов", "Тюмень", "Тольятти", "Ижевск", "Барнаул", "Ульяновск", "Иркутск", "Хабаровск", "Ярославль", "Владивосток", "Махачкала", "Томск", "Оренбург", "Кемерово"], picked = '';
+Stend.$('#city').addEventListener('input', function () {
+  picked = ''; Stend.$('#save').disabled = true;
+  var q = this.value.trim().toLowerCase(), list = Stend.$('#sug');
+  var hits = q.length < 2 ? [] : C.filter(function (c) { return c.toLowerCase().indexOf(q) === 0 || c.toLowerCase().indexOf(' ' + q) >= 0; }).slice(0, 6);
+  list.innerHTML = hits.map(function (c) { return '<li role="option" tabindex="-1">' + c + '</li>'; }).join('');
+  Stend.show(list, hits.length > 0); this.setAttribute('aria-expanded', hits.length > 0);
+  Stend.$$('#sug li').forEach(function (li) { li.onclick = function () {
+    Stend.$('#city').value = li.textContent; picked = li.textContent; Stend.show(list, false); Stend.$('#save').disabled = false; }; });
+});
+Stend.$('#f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (!picked) return;
+  Stend.log('address', {city: picked, street: Stend.$('#street').value.trim()});
+  Stend.$('#msg').className = 'ok'; Stend.$('#msg').textContent = 'Адрес сохранён: ' + picked;
+});
+</script>
+</body>
+</html>
